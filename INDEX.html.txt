@@ -1,0 +1,194 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>HONEYGAIN</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+body {
+    margin: 0;
+    background: #f2f2f2;
+}
+.app {
+    max-width: 420px;
+    margin: auto;
+    background: #fff;
+    min-height: 100vh;
+}
+.header {
+    background: #ffb703;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+}
+.screen {
+    display: none;
+    padding: 20px;
+}
+.screen.active {
+    display: block;
+}
+input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background: #ffb703;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.link {
+    text-align: center;
+    margin-top: 10px;
+    color: #555;
+    cursor: pointer;
+}
+.card {
+    background: #fafafa;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.balance {
+    font-size: 28px;
+    color: #2d6a4f;
+    font-weight: bold;
+}
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+.task button {
+    width: auto;
+    padding: 8px 14px;
+}
+.nav {
+    position: fixed;
+    bottom: 0;
+    width: 420px;
+    max-width: 100%;
+    display: flex;
+    background: #fff;
+    border-top: 1px solid #ddd;
+}
+.nav div {
+    flex: 1;
+    text-align: center;
+    padding: 12px;
+    font-size: 14px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+    <div class="header">HONEYGAIN</div>
+
+    <!-- LOGIN -->
+    <div class="screen active" id="login">
+        <h3>Login</h3>
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button onclick="show('dashboard')">Login</button>
+        <div class="link" onclick="show('signup')">Create an account</div>
+    </div>
+
+    <!-- SIGNUP -->
+    <div class="screen" id="signup">
+        <h3>Sign Up</h3>
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Password">
+        <button onclick="show('dashboard')">Create Account</button>
+        <div class="link" onclick="show('login')">Already have an account?</div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div class="screen" id="dashboard">
+        <div class="card">
+            <h4>Balance</h4>
+            <div class="balance">$<span id="balance">0.00</span></div>
+        </div>
+
+        <div class="card">
+            <h4>Tasks</h4>
+
+            <div class="task">
+                <span>Watch & comment</span>
+                <button onclick="earn(0.50)">Earn $0.50</button>
+            </div>
+
+            <div class="task">
+                <span>Like a video</span>
+                <button onclick="earn(0.20)">Earn $0.20</button>
+            </div>
+
+            <div class="task">
+                <span>Daily bonus</span>
+                <button onclick="earn(1.00)">Earn $1.00</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- WITHDRAW -->
+    <div class="screen" id="withdraw">
+        <h3>Withdraw Funds</h3>
+        <div class="card">
+            <p>Available Balance</p>
+            <div class="balance">$<span id="withdrawBalance">0.00</span></div>
+        </div>
+
+        <input type="text" placeholder="Payment Method (Bank / Crypto)">
+        <input type="number" placeholder="Amount">
+        <button onclick="alert('Withdrawal request submitted')">Withdraw</button>
+    </div>
+
+</div>
+
+<!-- NAVIGATION -->
+<div class="nav">
+    <div onclick="show('dashboard')">Home</div>
+    <div onclick="show('withdraw')">Withdraw</div>
+    <div onclick="show('login')">Logout</div>
+</div>
+
+<script>
+let balance = 0;
+
+function show(screen) {
+    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+    document.getElementById(screen).classList.add('active');
+}
+
+function earn(amount) {
+    balance += amount;
+    document.getElementById('balance').innerText = balance.toFixed(2);
+    document.getElementById('withdrawBalance').innerText = balance.toFixed(2);
+}
+</script>
+
+</body>
+</html>
